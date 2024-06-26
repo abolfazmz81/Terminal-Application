@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         backPurple: '#25123B',
+        mediumPurple: '#734FB0'
       },
     },
   },

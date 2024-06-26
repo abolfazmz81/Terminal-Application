@@ -7,10 +7,10 @@ export default function Top_menu() {
         <a href="">
           <h1 className="font-bold text-xl">LOGO</h1>
         </a>
-        <a href="">
+        <a className="sm:flex hidden" href="">
           <h3>خانه</h3>
         </a>
-        <a href="">
+        <a className="sm:flex hidden" href="">
           <h3>تماس با ما</h3>
         </a>
       </div>
