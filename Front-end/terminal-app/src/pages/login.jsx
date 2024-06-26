@@ -12,7 +12,7 @@ export default function Login(){
                     <p className="mb-2 font-bold text-[25px]">رمز عبور</p>
                     <input className="bg-lightPurple rounded-[15px] border-2 border-backPurple p-3" dir="ltr" type="text" />
                 </div>
-                <a href=""></a>
+                <a className="bg-[#8B7AB8] h-auto w-[70%] flex justify-center font-bold text-[20px] py-3 mt-3 rounded-md" href="">ورود</a>
             </div>
         </div>
         </>
