@@ -23,7 +23,7 @@ export default function Landing() {
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
               </p>
               <a
-                className="bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl"
+                className="bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
                 href=""
               >
                 شروع کنید
