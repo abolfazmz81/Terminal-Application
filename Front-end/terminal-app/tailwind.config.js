@@ -11,6 +11,9 @@ export default {
         mediumPurple: '#734FB0',
         lightPurple: '#625095'
       },
+      fontFamily: {
+        iranyekan: ['IranYekan', 'sans-serif'],
+      },
     },
   },
   plugins: [],

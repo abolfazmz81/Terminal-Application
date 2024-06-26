@@ -12,10 +12,10 @@ export default function Landing() {
             alt=""
           />
           <div className="sm:w-[40%] w-[90%]">
-            <h1 className="sm:text-3xl text-2xl font-bold text-center pb-4">
+            <h1 className="sm:text-3xl text-2xl font-bold font-iranyekan text-center pb-4">
               سامانه حمل و نقل
             </h1>
-            <div className="flex text-sm sm:text-base flex-col items-center gap-4 justify-center">
+            <div className="font-iranyekan flex text-sm sm:text-base flex-col items-center gap-4 justify-center">
               <p>
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
                 استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
@@ -24,7 +24,7 @@ export default function Landing() {
               </p>
               <a
                 className="bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
-                href=""
+                href="/login"
               >
                 شروع کنید
               </a>
