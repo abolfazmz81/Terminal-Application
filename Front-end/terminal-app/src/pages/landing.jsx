@@ -3,7 +3,7 @@ import Top_menu from "../components/top_menu";
 export default function Landing() {
   return (
     <>
-      <div className="bg-backPurple h-screen">
+      <div className="bg-backPurple py-3 h-screen">
         <Top_menu />
         <div className="flex justify-center items-center flex-col sm:flex-row-reverse gap-5 text-white bg-backPurple p-3">
           <img
@@ -24,7 +24,7 @@ export default function Landing() {
               </p>
               <a
                 className="bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
-                href=""
+                href="/login"
               >
                 شروع کنید
               </a>

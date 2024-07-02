@@ -14,7 +14,7 @@ export default function Driver() {
           </div>
           <a
             className="text-white bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
-            href=""
+            href="/"
           >
             خروج
           </a>
@@ -35,7 +35,7 @@ export default function Driver() {
           </div>
           <a
             className="text-white bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300 "
-            href=""
+            href="/"
           >
             خروج
           </a>
@@ -54,7 +54,7 @@ export default function Driver() {
             </h1>
             <div className="flex justify-end">
               <a
-                className="text-white bg-mediumPurple px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg ring-offset-[#62309c] ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300"
+                className="text-white bg-mediumPurple mx-2 px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg ring-offset-[#62309c] ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300"
                 href=""
               >
                 انجام شد
