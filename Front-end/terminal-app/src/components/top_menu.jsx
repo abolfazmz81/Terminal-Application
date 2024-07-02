@@ -10,18 +10,18 @@ export default function Top_menu() {
           </h1>
         </a>
         <a href="">
-          <h3 className="sm:flex hidden cursor-pointer hover:scale-[120%] transition-all duration-300">
-            خانه
+          <h3 className="sm:flex hidden font-iranyekan cursor-pointer hover:scale-[120%] transition-all duration-300">
+            شروع
           </h3>
         </a>
         <a href="">
-          <h3 className="sm:flex hidden cursor-pointer hover:scale-[120%] transition-all duration-300">
+          <h3 className="sm:flex hidden cursor-pointer font-iranyekan hover:scale-[120%] transition-all duration-300">
             تماس با ما
           </h3>
         </a>
       </div>
       <a href="">
-        <h1 className="sm:flex hidden bg-mediumPurple hover:scale-125 hover:shadow-lg transition-all duration-300 px-6 py-1 rounded-xl cursor-pointer">
+        <h1 className="sm:flex hidden font-iranyekan font-semibold bg-mediumPurple hover:scale-125 hover:shadow-lg transition-all duration-300 px-6 py-1 rounded-xl cursor-pointer">
           ورود
         </h1>
       </a>

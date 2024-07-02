@@ -8,16 +8,16 @@ export default function Admin_Menu() {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-backPurple">
+      <nav className="fixed top-0 z-50 w-full bg-backPurple font-iranyekan">
         <div className="px-6 py-3">
           <div className="flex items-center justify-between">
             <button
               id="menu"
               onClick={toggleSidebar}
-              className="p-1 flex sm:hidden rounded-lg text-gray-300 hover:text-white dark:hover:bg-mediumPurple group"
+              className="p-1 flex sm:hidden rounded-lg text-white hover:bg-mediumPurple"
             >
               <svg
-                className="w-7 h-7 transition duration-75 text-gray-400 group-hover:text-white"
+                className="w-7 h-7 transition duration-75 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
@@ -34,17 +34,17 @@ export default function Admin_Menu() {
                 </h1>
               </a>
               <a href="/admin_panel">
-                <h1 className="text-white text-md cursor-pointer hover:scale-[120%] transition-all duration-300">
+                <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
                   خانه
                 </h1>
               </a>
               <a href="">
-                <h1 className="text-white text-md cursor-pointer hover:scale-[120%] transition-all duration-300">
+                <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
                   خودرو - راننده
                 </h1>
               </a>
               <a href="">
-                <h1 className="text-white text-md cursor-pointer hover:scale-[120%] transition-all duration-300">
+                <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
                   گزارشات
                 </h1>
               </a>
@@ -59,7 +59,7 @@ export default function Admin_Menu() {
       {isSidebarVisible && (
         <div
           id="sidebar"
-          className="fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform translate-x-0 bg-backPurple sm:translate-x-full "
+          className="fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform translate-x-0 bg-backPurple sm:translate-x-full font-iranyekan"
         >
           <div className="h-full px-3 pb-4 bg-backPurple">
             <ul className="space-y-2 font-medium">
