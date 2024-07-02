@@ -1,26 +1,22 @@
 export default function Login() {
   return (
     <>
-      <div className="bg-backPurple h-screen flex justify-center items-center">
+      <div className="bg-backPurple h-screen flex justify-center items-center font-iranyekan">
         <div className="bg-lightPurple md:h-[65%] h-full md:w-[35%] w-full md:rounded-2xl flex flex-col items-center text-white">
           <p className="my-4 font-bold text-[40px]">Logo</p>
           <div className="my-3 w-full flex flex-col px-10 justify-center">
-            <p className="mb-2 font-medium font-iranyekan text-[25px]">
-              شماره تماس
-            </p>
+            <p className="mb-2 font-medium text-[25px]">شماره تماس</p>
             <input
-              className="bg-lightPurple font-iranyekan rounded-[15px] border-2 placeholder:text-backPurple text-white border-backPurple p-3"
+              className="bg-lightPurple rounded-[15px] border-2 placeholder:text-backPurple text-white border-backPurple p-3"
               dir="ltr"
               placeholder="+989123456789"
               type="text"
             />
           </div>
           <div className=" w-full flex flex-col px-10 justify-center">
-            <p className="mb-2 font-medium font-iranyekan text-[25px]">
-              رمز عبور
-            </p>
+            <p className="mb-2 font-medium text-[25px]">رمز عبور</p>
             <input
-              className="bg-lightPurple font-iranyekan rounded-[15px] border-2 placeholder:text-backPurple text-white border-backPurple p-3"
+              className="bg-lightPurple rounded-[15px] border-2 placeholder:text-backPurple text-white border-backPurple p-3"
               dir="ltr"
               type="text"
               placeholder="*********"
