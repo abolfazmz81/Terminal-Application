@@ -24,7 +24,7 @@ db_dependency = Annotated[Session, Depends(get_db())]
 
 
 @app.post("/Signup")
-async def update_score(json:SignUp, db: Session = Depends(get_db)):
+async def Signup(json:SignUp, db: Session = Depends(get_db)):
     check = db.query(Owner).filter(Owner.nationalId == json.nationalCode).first()
     check2 = db.query(Owner).filter(Owner.number == json.phoneNumber).first()
     if check or check2:
@@ -33,11 +33,20 @@ async def update_score(json:SignUp, db: Session = Depends(get_db)):
     db.add(nuser)
     db.commit()
     db.refresh(nuser)
-    return JSONResponse(content="ok",status_code=200)
+    return nuser
 
 
 
-@app.get("/top")
-async def Get_tops(db: Session = Depends(get_db)):
-    res = db.query(Owner).all()
-    return res
+@app.post("/Login")
+async def Login(json:Login,db: Session = Depends(get_db)):
+    u1 = db.query(Owner).filter(Owner.number == json.phoneNumber).first()
+    u2 = db.query(Driver).filter(Driver.number == json.phoneNumber and Driver.password == json.password).first()
+    if not u1:
+        if not u2:
+            return JSONResponse(content="the user with this phone number doesnt exists",status_code=404)
+        if u2.password == json.password:
+            return u2
+        return JSONResponse(content="wrong password", status_code=400)
+    if u1.password == json.password:
+        return u1
+    return JSONResponse(content="wrong password",status_code=400)
