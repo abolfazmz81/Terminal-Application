@@ -28,12 +28,30 @@ export default function Login() {
               placeholder="*********"
             />
           </div>
-          <a
-            className="bg-[#8B7AB8] mt-8 px-10 py-1 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
-            href="/driver"
-          >
-            ورود
-          </a>
+          <div className="flex justify-center items-center mt-8 gap-4">
+            <a
+              className="bg-[#8B7AB8] px-12 py-2 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
+              href="/driver"
+            >
+              ورود
+            </a>
+            <a href="/">
+              <h1 className="bg-red-500 p-2 rounded-2xl hover:scale-110 hover:shadow-lg transition-all duration-300">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
+                  />
+                </svg>
+              </h1>
+            </a>
+          </div>
         </div>
       </div>
     </>

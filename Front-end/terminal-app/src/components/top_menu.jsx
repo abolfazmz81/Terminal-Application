@@ -9,9 +9,9 @@ export default function Top_menu() {
             LOGO
           </h1>
         </a>
-        <a href="">
+        <a href="/">
           <h3 className="sm:flex hidden cursor-pointer hover:scale-[120%] transition-all duration-300">
-            شروع
+            خانه
           </h3>
         </a>
         <a href="">
@@ -20,7 +20,7 @@ export default function Top_menu() {
           </h3>
         </a>
       </div>
-      <a href="">
+      <a href="/login">
         <h1 className="sm:flex hidden font-semibold bg-mediumPurple hover:scale-125 hover:shadow-lg transition-all duration-300 px-6 py-1 rounded-xl cursor-pointer">
           ورود
         </h1>
