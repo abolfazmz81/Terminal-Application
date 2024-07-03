@@ -1,10 +1,8 @@
 from sqlalchemy import Column, Integer, String, BigInteger
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
+from database import Base
 
-base = declarative_base()
-
-
-class Owner(base):
+class Owner(Base):
     __tablename__ = "Owner"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

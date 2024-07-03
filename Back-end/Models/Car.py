@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship, declarative_base
+from database import Base
 
-base = declarative_base()
 
 
-class Car(base):
+class Car(Base):
     __tablename__ = 'Cars'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

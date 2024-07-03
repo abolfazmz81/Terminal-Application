@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String, BigInteger
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
+from database import Base
 
-base = declarative_base()
 
 
-class Driver(base):
+class Driver(Base):
     __tablename__ = 'Driver'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
