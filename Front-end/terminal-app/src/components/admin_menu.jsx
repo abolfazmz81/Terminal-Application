@@ -38,12 +38,17 @@ export default function Admin_Menu() {
                   خانه
                 </h1>
               </a>
-              <a href="">
+              <a href="/admin_car">
                 <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
                   خودرو - راننده
                 </h1>
               </a>
-              <a href="">
+              <a href="/admin_travel">
+                <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
+                  سفر ها
+                </h1>
+              </a>
+              <a href="/admin_report">
                 <h1 className="text-white text-md font-medium cursor-pointer hover:scale-[120%] transition-all duration-300">
                   گزارشات
                 </h1>
@@ -84,7 +89,7 @@ export default function Admin_Menu() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/admin_car"
                   className="flex items-center p-2 rounded-lg text-gray-300 hover:text-white dark:hover:bg-mediumPurple group"
                 >
                   <svg
@@ -102,7 +107,7 @@ export default function Admin_Menu() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/admin_travel"
                   className="flex items-center p-2 rounded-lg text-gray-300 hover:text-white dark:hover:bg-mediumPurple group"
                 >
                   <svg
@@ -121,7 +126,7 @@ export default function Admin_Menu() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/admin_report"
                   className="flex items-center p-2 rounded-lg text-gray-300 hover:text-white dark:hover:bg-mediumPurple group"
                 >
                   <svg

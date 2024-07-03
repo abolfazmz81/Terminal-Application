@@ -4,6 +4,12 @@ import Landing from "./pages/landing";
 import Driver from "./pages/driver";
 import Login from "./pages/login";
 import Admin_panel from "./pages/admin_panel";
+import Admin_car from "./pages/admin_car";
+import Add_car from "./pages/add_car";
+import Add_Driver from "./pages/add_driver";
+import Admin_report from "./pages/Admin_report";
+import Admin_travel from "./pages/admin_travel";
+import Add_travel from "./pages/Add_travel";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -16,7 +22,12 @@ function App() {
           <Route path="/driver" element={<Driver />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/admin_panel" element={<Admin_panel />} />
-          {/* <Route path="/gamedesign" element={<GameDesign />} /> */}
+          <Route path="/admin_car" element={<Admin_car />} />
+          <Route path="/add_car" element={<Add_car />} />
+          <Route path="/add_driver" element={<Add_Driver />} />
+          <Route path="/admin_report" element={<Admin_report />} />
+          <Route path="/admin_travel" element={<Admin_travel />} />
+          <Route path="/add_travel" element={<Add_travel />} />
         </Routes>
       </BrowserRouter>
     </>
