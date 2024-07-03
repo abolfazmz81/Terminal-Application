@@ -7,6 +7,7 @@ class Owner(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     Oname = Column(String(60), nullable=False)
+    Olname = Column(String(60), nullable=False)
     number = Column(BigInteger, nullable=False)
     password = Column(String(100))
     nationalId = Column(BigInteger)
