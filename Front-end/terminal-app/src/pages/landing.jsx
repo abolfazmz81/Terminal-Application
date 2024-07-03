@@ -3,7 +3,7 @@ import Top_menu from "../components/top_menu";
 export default function Landing() {
   return (
     <>
-      <div className="bg-backPurple py-3 h-screen">
+      <div className="bg-backPurple py-3 h-screen font-iranYekan">
         <Top_menu />
         <div className="flex font-iranyekan justify-center items-center flex-col sm:flex-row-reverse gap-5 text-white bg-backPurple p-3">
           <img

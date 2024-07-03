@@ -10,7 +10,7 @@ export default function Admin_panel() {
             <h1 className="text-white font-bold text-4xl mb-5">سفر های فعال</h1>
           </div>
           <div className="bg-backPurple border-2 border-purple-500 p-5 rounded-3xl mx-8 flex justify-center items-center flex-col gap-5">
-            <div className="bg-mediumPurple p-3 w-full rounded-xl text-white font-medium">
+            <div className="bg-mediumPurple p-3 w-full rounded-xl text-white font-medium hover:scale-[101%] duration-200 hover:shadow-lg">
               <h1>
                 راننده: <span>جاسم جاساز</span>
               </h1>
@@ -24,7 +24,7 @@ export default function Admin_panel() {
                 مقصد: <span>بابل. موزیرج و...</span>
               </h3>
             </div>
-            <div className="bg-mediumPurple p-3 w-full rounded-xl text-white font-medium">
+            <div className="bg-mediumPurple p-3 w-full rounded-xl text-white font-medium hover:scale-[101%] duration-200 hover:shadow-lg">
               <h1>
                 راننده: <span>جاسم جاساز</span>
               </h1>
