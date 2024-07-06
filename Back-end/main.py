@@ -22,6 +22,9 @@ app.add_middleware(
 
 db_dependency = Annotated[Session, Depends(get_db())]
 
+def model_to_dict(model_instance):
+    return {column.name: getattr(model_instance, column.name) for column in model_instance.__table__.columns}
+
 
 @app.post("/Signup")
 async def Signup(json:SignUp, db: Session = Depends(get_db)):
@@ -45,8 +48,8 @@ async def Login(json:Login,db: Session = Depends(get_db)):
         if not u2:
             return JSONResponse(content="the user with this phone number doesnt exists",status_code=404)
         if u2.password == json.password:
-            return u2
+            return JSONResponse(content=model_to_dict(u2), status_code=200)
         return JSONResponse(content="wrong password", status_code=400)
     if u1.password == json.password:
-        return u1
+        return JSONResponse(content=model_to_dict(u1), status_code=201)
     return JSONResponse(content="wrong password",status_code=400)
