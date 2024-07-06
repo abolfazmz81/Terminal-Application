@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import declarative_base
-
-base = declarative_base()
+from database import Base
 
 
-class CarDrivers(base):
+
+
+class CarDrivers(Base):
     __tablename__ = 'Car_Drivers'
 
     Did = Column(Integer, ForeignKey('Driver.id'), primary_key=True)

@@ -1,10 +1,8 @@
 from sqlalchemy import Column, Integer, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import declarative_base
-
-base = declarative_base()
+from database import Base
 
 
-class OwnerCars(base):
+class OwnerCars(Base):
     __tablename__ = 'owner_Cars'
 
     Oid = Column(Integer, ForeignKey('Owner.id'), primary_key=True)

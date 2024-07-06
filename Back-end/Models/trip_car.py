@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import declarative_base
-
-base = declarative_base()
+from database import Base
 
 
-class TripCar(base):
+
+class TripCar(Base):
     __tablename__ = 'Trip_Car'
 
     Tid = Column(Integer, ForeignKey('Trip.id'), primary_key=True)

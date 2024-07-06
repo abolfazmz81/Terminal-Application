@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import declarative_base
-
-base = declarative_base()
+from database import Base
 
 
-class TripDriver(base):
+
+class TripDriver(Base):
     __tablename__ = 'Trip_Driver'
 
     Tid = Column(Integer, ForeignKey('Trip.id'), primary_key=True)
