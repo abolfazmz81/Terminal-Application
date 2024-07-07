@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
+from database import Base
 
-base = declarative_base()
 
-
-class Trip(base):
+class Trip(Base):
     __tablename__ = 'Trip'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
