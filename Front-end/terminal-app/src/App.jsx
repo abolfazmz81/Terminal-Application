@@ -10,6 +10,7 @@ import Add_Driver from "./pages/add_driver";
 import Admin_report from "./pages/Admin_report";
 import Admin_travel from "./pages/admin_travel";
 import Add_travel from "./pages/Add_travel";
+import Contact_us from "./pages/contact_us";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -28,6 +29,8 @@ function App() {
           <Route path="/admin_report" element={<Admin_report />} />
           <Route path="/admin_travel" element={<Admin_travel />} />
           <Route path="/add_travel" element={<Add_travel />} />
+          <Route path="/contact_us" element={<Contact_us />} />
+          <Route path="/landing" element={<Landing />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -14,7 +14,7 @@ export default function Top_menu() {
             خانه
           </h3>
         </a>
-        <a href="">
+        <a href="/contact_us">
           <h3 className="sm:flex hidden cursor-pointer hover:scale-[120%] transition-all duration-300">
             تماس با ما
           </h3>
