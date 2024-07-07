@@ -54,10 +54,10 @@ async def Login(json:Login,db: Session = Depends(get_db)):
 
 @app.post("/add_car")
 async def add_car(json:Car, db: Session = Depends(get_db)):
-    check = db.query(Owner).filter(Car.plate == json.plate).first()
+    check = db.query(Car).filter(Car.plate == json.plate).first()
     if check:
         return JSONResponse(content="the car with this plate already exists",status_code=400)
-    ncar = Owner(model=json.Cmodel,color=json.Ccolor,plate=json.Cplate,type=json.Ctype)
+    ncar = Car(model=json.Cmodel,color=json.Ccolor,plate=json.Cplate,type=json.Ctype)
     db.add(ncar)
     db.commit()
     db.refresh(ncar)
