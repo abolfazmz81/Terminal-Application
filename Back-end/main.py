@@ -7,7 +7,7 @@ from database import SessionLocal, engine, Base, get_db
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated, ClassVar, List
 from Schemes import *
-from datetime import datetime
+from datetime import datetime,date
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
@@ -211,4 +211,20 @@ async def owner_Trips(owner_id: int = Path(...,title="the ID of the trip to dele
         for el in dr2:
             dr3 = db.query(Driver).filter(Driver.id == el.Did).first()
             all.append(dr3)
+    return all
+
+@app.get("/O_Daily_Trips/{owner_id}")
+async def owner_today_Trips(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(TripCar).filter(TripCar.Cid == element.Cid).all()
+        for el in dr2:
+            dr3 = db.query(Trip).filter(Trip.id == el.Tid).first()
+            if not dr3.IsCompleted:
+                today = date.today()
+                if dr3.Date == today:
+                    all.append(dr3)
     return all
