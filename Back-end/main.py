@@ -52,4 +52,7 @@ async def Login(json:Login,db: Session = Depends(get_db)):
         return JSONResponse(content="wrong password", status_code=400)
     if u1.password == json.password:
         return JSONResponse(content=model_to_dict(u1), status_code=201)
+    if u2:
+        if u2.password == json.password:
+            return JSONResponse(content=model_to_dict(u2), status_code=200)
     return JSONResponse(content="wrong password",status_code=400)
