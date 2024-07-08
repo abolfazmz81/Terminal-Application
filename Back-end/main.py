@@ -151,4 +151,14 @@ async def delete_car(driver_id: int = Path(...,title="the ID of the trip to dele
     db.commit()
     return JSONResponse(content="the driver successfully deleted", status_code=200)
 
+@app.get("/DTrips/{driver_id}")
+async def delete_car(driver_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    dr = db.query(TripDriver).filter(TripDriver.Did == driver_id).all()
+    if not dr:
+        return JSONResponse(content="the driver you chose does not exists",status_code=404)
+    all = []
+    for element in dr:
+        dr2 = db.query(Trip).filter(Trip.id == element.Tid).first()
+        all.append(dr2)
+    return all
 
