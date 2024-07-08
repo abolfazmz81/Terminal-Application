@@ -7,6 +7,7 @@ from database import SessionLocal, engine, Base, get_db
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated, ClassVar, List
 from Schemes import *
+from datetime import datetime
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
@@ -90,3 +91,26 @@ async def Add_Car(json:add_car, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(cd)
     return JSONResponse(content=model_to_dict(ncar),status_code=200)
+
+@app.post("/Add_Trip")
+async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
+    di = db.query(Driver).filter(Driver.id == json.Did).first()
+    car = db.query(Car).filter(Car.id == json.Cid).first()
+    if not di:
+        return JSONResponse(content="the driver does not exist",status_code=404)
+    if not car:
+        return JSONResponse(content="the car does not exist",status_code=404)
+    trip = Trip(Date=datetime.strptime(json.Date,"%Y/%m/%d"),Price=json.Price,Origin=json.Origin,Destination=json.Destination,IsCompleted=False)
+    db.add(trip)
+    db.commit()
+    db.refresh(trip)
+    tc = TripCar(Tid=trip.id,Cid=car.id)
+    td = TripDriver(Tid=trip.id,Did=di.id)
+    db.add(tc)
+    db.commit()
+    db.refresh(tc)
+    db.add(td)
+    db.commit()
+    db.refresh(td)
+    trip.Date = trip.Date.__str__()
+    return JSONResponse(content=model_to_dict(trip),status_code=200)
