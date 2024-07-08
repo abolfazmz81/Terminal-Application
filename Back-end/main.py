@@ -1,5 +1,5 @@
 from fastapi.responses import JSONResponse
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException,Path
 from sqlalchemy.orm import Session
 from Models import *
 from sqlalchemy import desc
@@ -115,8 +115,8 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
     trip.Date = trip.Date.__str__()
     return JSONResponse(content=model_to_dict(trip),status_code=200)
 
-@app.put("/Verify")
-async def Verify(trip: int,db: Session = Depends(get_db)):
+@app.put("/Verify/{trip}")
+async def Verify(trip: int = Path(...,title="the ID of the trip to verify"),db: Session = Depends(get_db)):
     tr = db.query(Trip).filter(Trip.id == trip).first()
     if not tr:
         return JSONResponse(content="the desired trip does not exist",status_code=404)
