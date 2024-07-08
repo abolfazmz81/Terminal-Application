@@ -123,3 +123,12 @@ async def Verify(trip: int = Path(...,title="the ID of the trip to verify"),db: 
     tr.IsCompleted = True
     db.commit()
     return JSONResponse(content="trip Completed successfully",status_code=200)
+
+@app.delete("/Delete_Car/{car_id}")
+async def delete_car(car_id: int = Path(...,title="the ID of the car to delete"),db: Session = Depends(get_db)):
+    cr = db.query(Car).filter(Car.id == car_id).first()
+    if not cr:
+        return JSONResponse(content="the car you chose does not exists",status_code=404)
+    db.delete(cr)
+    db.commit()
+    return JSONResponse(content="the car succe", status_code=200)
