@@ -7,7 +7,7 @@ from database import SessionLocal, engine, Base, get_db
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated, ClassVar, List
 from Schemes import *
-from datetime import datetime
+from datetime import datetime,date
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
@@ -100,6 +100,14 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
         return JSONResponse(content="the driver does not exist",status_code=404)
     if not car:
         return JSONResponse(content="the car does not exist",status_code=404)
+    ch1 = db.query(CarDrivers).filter(CarDrivers.Cid == json.Cid).first()
+    ch2 = db.query(CarDrivers).filter(CarDrivers.Did == json.Did).first()
+    if ch1:
+        if ch1.Did != json.Did:
+            return JSONResponse(content="this car does is not driven by this driver",status_code=400)
+    if ch2:
+        if ch2.Cid != json.Cid:
+            return JSONResponse(content="this car does is not driven by this driver",status_code=400)
     trip = Trip(Date=datetime.strptime(json.Date,"%Y/%m/%d"),Price=json.Price,Origin=json.Origin,Destination=json.Destination,IsCompleted=False)
     db.add(trip)
     db.commit()
@@ -112,8 +120,13 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
     db.add(td)
     db.commit()
     db.refresh(td)
+    te = db.query(CarDrivers).filter(CarDrivers.Cid == json.Cid).first()
     trip.Date = trip.Date.__str__()
-    return JSONResponse(content=model_to_dict(trip),status_code=200)
+    if not te:
+        o1 = CarDrivers(Did=json.Did,Cid=json.Cid)
+        db.add(o1)
+        db.commit()
+    return trip
 
 @app.put("/Verify/{trip}")
 async def Verify(trip: int = Path(...,title="the ID of the trip to verify"),db: Session = Depends(get_db)):
@@ -131,4 +144,87 @@ async def delete_car(car_id: int = Path(...,title="the ID of the car to delete")
         return JSONResponse(content="the car you chose does not exists",status_code=404)
     db.delete(cr)
     db.commit()
-    return JSONResponse(content="the car succe", status_code=200)
+    return JSONResponse(content="the car successfully deleted", status_code=200)
+
+@app.delete("/Delete_Trip/{trip_id}")
+async def delete_car(trip_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    tr = db.query(Trip).filter(Trip.id == trip_id).first()
+    if not tr:
+        return JSONResponse(content="the trip you chose does not exists",status_code=404)
+    db.delete(tr)
+    db.commit()
+    return JSONResponse(content="the trip successfully deleted", status_code=200)
+
+@app.delete("/Delete_Driver/{driver_id}")
+async def delete_car(driver_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    dr = db.query(Driver).filter(Driver.id == driver_id).first()
+    if not dr:
+        return JSONResponse(content="the driver you chose does not exists",status_code=404)
+    db.delete(dr)
+    db.commit()
+    return JSONResponse(content="the driver successfully deleted", status_code=200)
+
+@app.get("/DTrips/{driver_id}")
+async def log_driver(driver_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    dr = db.query(TripDriver).filter(TripDriver.Did == driver_id).all()
+    if not dr:
+        return JSONResponse(content="the driver you chose does not exists",status_code=404)
+    all = []
+    for element in dr:
+        dr2 = db.query(Trip).filter(Trip.id == element.Tid).first()
+        all.append(dr2)
+    return all
+
+@app.get("/OCars/{owner_id}")
+async def owner_Cars(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(Car).filter(Car.id == element.Cid).first()
+        all.append(dr2)
+    return all
+
+@app.get("/OTrips/{owner_id}")
+async def owner_Trips(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(TripCar).filter(TripCar.Cid == element.Cid).all()
+        for el in dr2:
+            dr3 = db.query(Trip).filter(Trip.id == el.Tid).first()
+            if not dr3.IsCompleted:
+                all.append(dr3)
+    return all
+
+@app.get("/ODrivers/{owner_id}")
+async def owner_Trips(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(CarDrivers).filter(CarDrivers.Cid == element.Cid).all()
+        for el in dr2:
+            dr3 = db.query(Driver).filter(Driver.id == el.Did).first()
+            all.append(dr3)
+    return all
+
+@app.get("/O_Daily_Trips/{owner_id}")
+async def owner_today_Trips(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(TripCar).filter(TripCar.Cid == element.Cid).all()
+        for el in dr2:
+            dr3 = db.query(Trip).filter(Trip.id == el.Tid).first()
+            if not dr3.IsCompleted:
+                today = date.today()
+                if dr3.Date == today:
+                    all.append(dr3)
+    return all
