@@ -56,3 +56,19 @@ async def Login(json:Login,db: Session = Depends(get_db)):
         if u2.password == json.password:
             return JSONResponse(content=model_to_dict(u2), status_code=200)
     return JSONResponse(content="wrong password",status_code=400)
+
+
+@app.post("/Add_Driver")
+async def Add_Driver(json:driver,db : Session = Depends(get_db)):
+    check = db.query(Driver).filter(Driver.nationalId == json.nationalCode).first()
+    check2 = db.query(Driver).filter(Driver.number == json.phoneNumber).first()
+    if check:
+        return JSONResponse(content="the user with this national id already exists",status_code=400)
+    elif check2:
+        return JSONResponse(content="the user with this phone number already exists",status_code=400)
+    nuser = Driver(Dname=json.name,Dlname=json.lname,number=json.phoneNumber,password=json.password,nationalId=json.nationalCode)
+    db.add(nuser)
+    db.commit()
+    db.refresh(nuser)
+    return nuser
+
