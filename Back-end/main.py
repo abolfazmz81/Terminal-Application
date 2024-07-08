@@ -131,4 +131,14 @@ async def delete_car(car_id: int = Path(...,title="the ID of the car to delete")
         return JSONResponse(content="the car you chose does not exists",status_code=404)
     db.delete(cr)
     db.commit()
-    return JSONResponse(content="the car succe", status_code=200)
+    return JSONResponse(content="the car successfully deleted", status_code=200)
+
+@app.delete("/Delete_Trip/{trip_id}")
+async def delete_car(trip_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    tr = db.query(Trip).filter(Trip.id == trip_id).first()
+    if not tr:
+        return JSONResponse(content="the trip you chose does not exists",status_code=404)
+    db.delete(tr)
+    db.commit()
+    return JSONResponse(content="the trip successfully deleted", status_code=200)
+
