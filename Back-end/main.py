@@ -100,6 +100,14 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
         return JSONResponse(content="the driver does not exist",status_code=404)
     if not car:
         return JSONResponse(content="the car does not exist",status_code=404)
+    ch1 = db.query(CarDrivers).filter(CarDrivers.Cid == json.Cid).first()
+    ch2 = db.query(CarDrivers).filter(CarDrivers.Did == json.Did).first()
+    if ch1:
+        if ch1.Did != json.Did:
+            return JSONResponse(content="this car does is not driven by this driver",status_code=400)
+    if ch2:
+        if ch2.Cid != json.Cid:
+            return JSONResponse(content="this car does is not driven by this driver",status_code=400)
     trip = Trip(Date=datetime.strptime(json.Date,"%Y/%m/%d"),Price=json.Price,Origin=json.Origin,Destination=json.Destination,IsCompleted=False)
     db.add(trip)
     db.commit()
@@ -112,8 +120,13 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
     db.add(td)
     db.commit()
     db.refresh(td)
+    te = db.query(CarDrivers).filter(CarDrivers.Cid == json.Cid).first()
     trip.Date = trip.Date.__str__()
-    return JSONResponse(content=model_to_dict(trip),status_code=200)
+    if not te:
+        o1 = CarDrivers(Did=json.Did,Cid=json.Cid)
+        db.add(o1)
+        db.commit()
+    return trip
 
 @app.put("/Verify/{trip}")
 async def Verify(trip: int = Path(...,title="the ID of the trip to verify"),db: Session = Depends(get_db)):
