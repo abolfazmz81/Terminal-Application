@@ -185,3 +185,18 @@ async def owner_Cars(owner_id: int = Path(...,title="the ID of the trip to delet
         dr2 = db.query(Car).filter(Car.id == element.Cid).first()
         all.append(dr2)
     return all
+
+@app.get("/OTrips/{owner_id}")
+async def owner_Trips(owner_id: int = Path(...,title="the ID of the trip to delete"),db: Session = Depends(get_db)):
+    cr = db.query(OwnerCars).filter(OwnerCars.Oid == owner_id).all()
+    if not cr:
+        return JSONResponse(content="the owner you chose does not exists",status_code=404)
+    all = []
+    for element in cr:
+        dr2 = db.query(TripCar).filter(TripCar.Cid == element.Cid).all()
+        for el in dr2:
+            dr3 = db.query(Trip).filter(Trip.id == el.Tid).first()
+            if not dr3.IsCompleted:
+                all.append(dr3)
+
+    return all
