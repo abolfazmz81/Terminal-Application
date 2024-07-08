@@ -114,3 +114,12 @@ async def Add_Trip(json:add_trip,db : Session = Depends(get_db)):
     db.refresh(td)
     trip.Date = trip.Date.__str__()
     return JSONResponse(content=model_to_dict(trip),status_code=200)
+
+@app.put("/Verify")
+async def Verify(trip: int,db: Session = Depends(get_db)):
+    tr = db.query(Trip).filter(Trip.id == trip).first()
+    if not tr:
+        return JSONResponse(content="the desired trip does not exist",status_code=404)
+    tr.IsCompleted = True
+    db.commit()
+    return JSONResponse(content="trip Completed successfully",status_code=200)
