@@ -72,3 +72,21 @@ async def Add_Driver(json:driver,db : Session = Depends(get_db)):
     db.refresh(nuser)
     return nuser
 
+@app.post("/Add_Car")
+async def Add_Car(json:add_car, db: Session = Depends(get_db)):
+    check = db.query(Car).filter(Car.plate == json.plate).first()
+    if check:
+        return JSONResponse(content="the car with this plate already exists",status_code=400)
+    check = db.query(Owner).filter(Owner.id == json.Oid)
+    if not check:
+        return JSONResponse(content="the owner id is not valid",status_code=404)
+
+    ncar = Car(model=json.model,color=json.color,plate=json.plate,type=json.type)
+    db.add(ncar)
+    db.commit()
+    db.refresh(ncar)
+    cd = OwnerCars(Oid=json.Oid,Cid=ncar.id)
+    db.add(cd)
+    db.commit()
+    db.refresh(cd)
+    return JSONResponse(content=model_to_dict(ncar),status_code=200)
