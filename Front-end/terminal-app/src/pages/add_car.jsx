@@ -1,10 +1,35 @@
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+
 export default function Add_car() {
+  const navigate = useNavigate();
+
+  function addCar(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    setCar(data);
+    navigate("/admin_car");
+  }
+
+  useEffect(() => {
+    async function setCar(data) {
+      await axios.post("http", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+  }, []);
+
   return (
     <>
       <div className="w-full h-screen bg-backPurple flex justify-center items-center font-iranyekan">
         <div className="sm:w-3/4 sm:h-1/2 xl:h-2/3 w-full h-full  bg-mediumPurple sm:border-2 border-0 border-purple-500 sm:rounded-3xl rounded-none">
           <form
-            action=""
+            onSubmit={addCar}
             className="flex justify-center items-center flex-col w-full h-full text-white"
           >
             <h1 className="sm:text-5xl text-3xl font-bold mb-10">
@@ -18,6 +43,7 @@ export default function Add_car() {
                 <input
                   type="text"
                   id="name"
+                  name="model"
                   placeholder="پژو پارس"
                   className="bg-lightPurple mt-2 w-full rounded-xl h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
@@ -29,6 +55,7 @@ export default function Add_car() {
                 <input
                   type="text"
                   id="palete"
+                  name="plate"
                   placeholder="12س345"
                   className="bg-lightPurple mt-2 w-full rounded-xl h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
@@ -42,6 +69,7 @@ export default function Add_car() {
                 <input
                   type="text"
                   id="color"
+                  name="color"
                   placeholder="مشکی نوک مدادی"
                   className="bg-lightPurple mt-2 rounded-xl w-full h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
@@ -54,16 +82,17 @@ export default function Add_car() {
                   type="text"
                   id="type"
                   placeholder="سواری"
+                  name="type"
                   className="bg-lightPurple mt-2 rounded-xl w-full h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
               </div>
             </div>
             <div className="flex justify-center items-center gap-5 mt-8">
-              <a href="/admin_car">
+              <button type="submit">
                 <h1 className="bg-purple-500 px-10 py-2 text-2xl font-black rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300">
                   افزودن خودرو
                 </h1>
-              </a>
+              </button>
               <a href="/admin_car">
                 <h1 className="bg-red-500 p-2 rounded-2xl hover:scale-110 hover:shadow-lg transition-all duration-300">
                   <svg

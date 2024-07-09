@@ -1,4 +1,22 @@
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+
 export default function Driver() {
+  const [trip, setTrip] = useState([]);
+
+  useEffect(() => {
+    async function loadTrip() {
+      const response = await fetch("http", {
+        method: "GET",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+      }).then((res) => res.json().then((data) => setTrip(data)));
+    }
+    loadTrip();
+  }, []);
+
   return (
     <>
       <div className="w-full h-screen bg-backPurple flex lg:flex-row flex-col justify-center items-center gap-7 font-iranyekan">
@@ -42,25 +60,27 @@ export default function Driver() {
         </div>
         <div className="bg-lightPurple lg:w-[60%] w-[95%] lg:h-[95%] h-[80%] rounded-xl text-white">
           <h1 className="text-4xl text-center font-bold mt-5">سفر ها</h1>
-          <div className="m-8 bg-[#62309c] p-5 rounded-2xl hover:scale-[101%] hover:shadow-xl ring-offset-lightPurple ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300">
-            <h1>
-              تاریخ: <span>تاریخ در این جا قرار میگیرید</span>
-            </h1>
-            <h1>
-              مبدا: <span>آدرس در این جا قرار میگیرید</span>
-            </h1>
-            <h1>
-              مقصد: <span>آدرس در این جا قرار میگیرید</span>
-            </h1>
-            <div className="flex justify-end">
-              <a
-                className="text-white bg-mediumPurple mx-2 px-10 py-1 text-2xl font-medium rounded-xl hover:scale-110 hover:shadow-lg ring-offset-[#62309c] ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300"
-                href=""
-              >
-                انجام شد
-              </a>
+          {trip.map((trip) => (
+            <div className="m-8 bg-[#62309c] p-5 rounded-2xl hover:scale-[101%] hover:shadow-xl ring-offset-lightPurple ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300">
+              <h1>
+                تاریخ: <span>{trip.Date}</span>
+              </h1>
+              <h1>
+                مبدا: <span>{trip.Origin}</span>
+              </h1>
+              <h1>
+                مقصد: <span>{trip.Destination}</span>
+              </h1>
+              <div className="flex justify-end">
+                <a
+                  className="text-white bg-mediumPurple mx-2 px-10 py-1 text-2xl font-medium rounded-xl hover:scale-110 hover:shadow-lg ring-offset-[#62309c] ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300"
+                  href=""
+                >
+                  انجام شد
+                </a>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </>
