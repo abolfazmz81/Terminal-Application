@@ -5,6 +5,8 @@ export default function Input({
   value,
   onChange,
   className,
+  name,
+  type
 }) {
   return (
     <div className={"w-full px-5 " + className}>
@@ -12,8 +14,9 @@ export default function Input({
         <h1 className="mr-2 font-medium text-xl">{label}</h1>
       </label>
       <input
-        type="text"
+        type={type}
         id={id}
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

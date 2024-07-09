@@ -4,10 +4,13 @@ import { useEffect } from "react";
 
 export default function Driver() {
   const [trip, setTrip] = useState([]);
-
+  const value = localStorage.getItem("information");
+  const parsedData = JSON.parse(value);
+  console.log(parsedData.id);
+  
   useEffect(() => {
     async function loadTrip() {
-      const response = await fetch("http", {
+      const response = await fetch(`http://127.0.0.1:8000/DTrips/${parsedData.id}`, {
         method: "GET",
         // headers: {
         //   "Content-Type": "application/json",
@@ -16,6 +19,18 @@ export default function Driver() {
     }
     loadTrip();
   }, []);
+
+  
+  async function verifyTrip(id) {
+    console.log(id);
+    const response = await fetch(`http://127.0.0.1:8000/Verify/${id}`, {
+      method: "Put",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    })
+    window.location.reload();
+  }
 
   return (
     <>
@@ -27,8 +42,8 @@ export default function Driver() {
               src="profile.jpg"
               alt=""
             />
-            <h1 className="text-3xl text-center font-bold">جاسم جاساز</h1>
-            <h1 className="text-xl text-center font-semibold">123456789</h1>
+            <h1 className="text-3xl text-center font-bold">{parsedData.Dname +"  " + parsedData.Dlname}</h1>
+            <h1 className="text-xl text-center font-semibold">{parsedData.number}</h1>
           </div>
           <a
             className="text-white bg-mediumPurple px-10 py-1 text-2xl font-semibold rounded-xl hover:scale-110 hover:shadow-lg transition-all duration-300"
@@ -45,9 +60,9 @@ export default function Driver() {
               alt=""
             />
             <div className="text-white">
-              <h1 className="text-3xl font-bold">جاسم جاساز</h1>
+              <h1 className="text-3xl font-bold">{parsedData.Dname +"  " + parsedData.Dlname}</h1>
               <h1 className="text-xl text-start mt-2 font-semibold">
-                123456789
+                {parsedData.number}
               </h1>
             </div>
           </div>
@@ -58,7 +73,7 @@ export default function Driver() {
             خروج
           </a>
         </div>
-        <div className="bg-lightPurple lg:w-[60%] w-[95%] lg:h-[95%] h-[80%] rounded-xl text-white">
+        <div className="bg-lightPurple lg:w-[60%] w-[95%] lg:h-[95%] h-[80%] h-[30rem] overflow-auto rounded-xl text-white">
           <h1 className="text-4xl text-center font-bold mt-5">سفر ها</h1>
           {trip.map((trip) => (
             <div className="m-8 bg-[#62309c] p-5 rounded-2xl hover:scale-[101%] hover:shadow-xl ring-offset-lightPurple ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300">
@@ -72,12 +87,11 @@ export default function Driver() {
                 مقصد: <span>{trip.Destination}</span>
               </h1>
               <div className="flex justify-end">
-                <a
+                <button onClick={() => verifyTrip(trip.id)}
                   className="text-white bg-mediumPurple mx-2 px-10 py-1 text-2xl font-medium rounded-xl hover:scale-110 hover:shadow-lg ring-offset-[#62309c] ring-0 hover:ring-offset-4 hover:ring-purple-300  hover:ring-[0.18rem] transition-all duration-300"
-                  href=""
                 >
                   انجام شد
-                </a>
+                </button>
               </div>
             </div>
           ))}

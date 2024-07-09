@@ -1,6 +1,36 @@
 import Admin_Menu from "../components/admin_menu";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Admin_travel() {
+  const [trip, setTrip] = useState([]);
+
+  useEffect(() => {
+    async function loadTrip() {
+      const value = localStorage.getItem("information");
+      const parsedData = JSON.parse(value);
+      console.log(parsedData.id);
+      const response = await fetch(`http://127.0.0.1:8000/OTrips/${parsedData.id}`, {
+        method: "GET",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+      }).then((res) => res.json().then((data) => setTrip(data)));
+    }
+    loadTrip();
+  }, []);
+
+  async function deleteTrip(id) {
+    console.log(id);
+    const response = await fetch(`http://127.0.0.1:8000/Delete_Trip/${id}`, {
+      method: "Delete",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    });
+  }
+
   return (
     <>
       <div className="bg-mediumPurple w-full h-screen font-iranyekan">
@@ -33,19 +63,21 @@ export default function Admin_travel() {
                 </div>
                 <table className="flex mt-3 justify-center items-center flex-col w-full overflow-auto">
                   <tr className="flex font-bold sm:text-xl text-lg mb-5 text-center sm:gap-4 gap-1">
-                    <th className="w-28">نام راننده</th>
+                    <th className="w-28">قیمت</th>
                     <th className="w-32">آدرس مبدا</th>
                     <th className="w-32">آدرس مقصد</th>
                     <th className="w-28">تاریخ</th>
                     <th className="w-28">عملیات</th>
                   </tr>
+                  {trip.map((trip) => (
                   <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
+                    <td className="w-28">{trip.Price}</td>
+                    <td className="w-32">{trip.Origin}</td>
+                    <td className="w-32">{trip.Destination}</td>
+                    <td className="w-28">{trip.Date}</td>
                     <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
+                      <button onClick={() => deleteTrip(trip.id)}
+                       className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -59,206 +91,7 @@ export default function Admin_travel() {
                       </button>
                     </td>
                   </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">آبی آسمانی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="flex text-center mb-1 sm:gap-4 gap-1">
-                    <td className="w-28">پژمان کاظمی میر</td>
-                    <td className="w-32">12س34572</td>
-                    <td className="w-32">سبز یشمی</td>
-                    <td className="w-28">سواری</td>
-                    <td className="w-28">
-                      <button className="bg-red-600 p-1 rounded-md hover:scale-110 duration-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
+                  ))}
                 </table>
               </div>
             </div>

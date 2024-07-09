@@ -6,23 +6,23 @@ import { Navigate, useNavigate } from "react-router-dom";
 export default function Add_car() {
   const navigate = useNavigate();
 
-  function addCar(e) {
+  async function addCar(e) {
     e.preventDefault();
+
+    const value = localStorage.getItem("information");
+      const parsedData = JSON.parse(value);
+      console.log(parsedData.id);
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    setCar(data);
+    data.Oid = parsedData.id;
+    await axios.post("http://127.0.0.1:8000/Add_Car", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     navigate("/admin_car");
   }
-
-  useEffect(() => {
-    async function setCar(data) {
-      await axios.post("http", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    }
-  }, []);
 
   return (
     <>

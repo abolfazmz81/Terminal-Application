@@ -1,10 +1,37 @@
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+
+
 export default function Add_Driver() {
+  const navigate = useNavigate();
+
+  async function addDriver(e) {
+    e.preventDefault();
+
+    const value = localStorage.getItem("information");
+      const parsedData = JSON.parse(value);
+      console.log(parsedData.id);
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    data.lname = data.name;
+    await axios.post("http://127.0.0.1:8000/Add_Driver", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    navigate("/admin_car");
+  }
+
+
   return (
     <>
       <div className="w-full h-screen bg-backPurple flex justify-center items-center font-iranyekan">
         <div className="sm:w-3/4 sm:h-1/2 xl:h-2/3 w-full h-full  bg-mediumPurple sm:border-2 border-0 border-purple-500 sm:rounded-3xl rounded-none">
           <form
-            action=""
+            onSubmit={addDriver}
             className="flex justify-center items-center flex-col w-full h-full text-white"
           >
             <h1 className="sm:text-5xl text-3xl font-bold mb-10">
@@ -20,6 +47,7 @@ export default function Add_Driver() {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   placeholder="جاسم جاساز"
                   className="bg-lightPurple mt-2 w-full rounded-xl h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
@@ -31,6 +59,7 @@ export default function Add_Driver() {
                 <input
                   type="text"
                   id="palete"
+                  name="nationalCode"
                   placeholder="12س345"
                   className="bg-lightPurple mt-2 w-full rounded-xl h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
@@ -39,12 +68,14 @@ export default function Add_Driver() {
             <div className="flex justify-center items-center sm:flex-row flex-col w-full sm:gap-20 gap-3 mt-4">
               <div className="sm:w-1/2 md:w-1/3 w-full md:px-0 px-3">
                 <label htmlFor="color">
-                  <h1 className="mr-2 font-medium text-xl">خودرو:</h1>
+                  <h1 className="mr-2 font-medium text-xl">شماره تلفن:</h1>
                 </label>
                 <input
                   type="text"
+                  dir="ltr"
                   id="color"
-                  placeholder="پژو پارس"
+                  name="phoneNumber"
+                  placeholder="0912345678910"
                   className="bg-lightPurple mt-2 rounded-xl w-full h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
               </div>
@@ -55,6 +86,7 @@ export default function Add_Driver() {
                 <input
                   type="text"
                   id="type"
+                  name="password"
                   placeholder="********"
                   className="bg-lightPurple mt-2 rounded-xl w-full h-10 border-2 placeholder:text-backPurple text-white border-backPurple px-2 py-1"
                 />
