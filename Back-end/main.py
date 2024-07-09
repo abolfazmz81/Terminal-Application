@@ -172,7 +172,8 @@ async def log_driver(driver_id: int = Path(...,title="the ID of the trip to dele
     all = []
     for element in dr:
         dr2 = db.query(Trip).filter(Trip.id == element.Tid).first()
-        all.append(dr2)
+        if not dr2.IsCompleted:
+            all.append(dr2)
     return all
 
 @app.get("/OCars/{owner_id}")
