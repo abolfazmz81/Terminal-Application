@@ -34,7 +34,7 @@ export default function Driver() {
 
   return (
     <>
-      <div className="w-full h-screen bg-backPurple flex lg:flex-row flex-col justify-center items-center gap-7 font-iranyekan">
+      <div className="w-full h-screen p-3 bg-backPurple flex lg:flex-row flex-col justify-center items-center gap-7 font-iranyekan">
         <div className="lg:flex hidden bg-lightPurple h-[95%] w-[20%] rounded-xl justify-between flex-col items-center py-7">
           <div className="flex justify-center items-center flex-col gap-2 text-white">
             <img

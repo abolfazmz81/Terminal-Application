@@ -56,7 +56,7 @@ export default function Admin_car() {
 
   return (
     <>
-      <div className="bg-mediumPurple w-full h-screen font-iranyekan">
+      <div className="bg-mediumPurple w-full h-full font-iranyekan">
         <Admin_Menu />
         <div className="pt-20">
           <div className="sm:pr-10 pr-0">
